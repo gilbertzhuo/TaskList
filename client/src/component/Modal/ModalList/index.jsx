@@ -21,18 +21,19 @@ export default function ModalList() {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    axios.post("http://localhost:5001/tasks/add", {
+    const Object = {
       collection_id: document.getElementById("name").value,
       name: "This is your title",
       description: "This is your description",
       deadline: "2020-12-31",
-    });
-    _GlobalFunction["toggleList"]();
-    window.location.reload();
+    };
+    axios
+      .post("http://localhost:5001/tasks/add", Object)
+      .then(_GlobalFunction["toggleList"]());
   };
   const deleteAll = () => {
     axios.delete("http://localhost:5001/tasks/");
-    window.location.reload();
+    _GlobalFunction["addTaskList"](null);
   };
   return (
     <>
