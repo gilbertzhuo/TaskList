@@ -10,21 +10,13 @@ function App() {
   const _GlobalObject = GlobalObject();
   return (
     <div className="mainContainer">
-      {console.log(_GlobalObject)}
       <div className="header">
         <h1> TASK LIST </h1>
       </div>
       <TaskList />
       <ModalList />
-      {console.log(_GlobalObject)}
-      <ModalTaskList
-        id={GlobalObject["id"]}
-        collectionId={GlobalObject["collectionId"]}
-      />
-      <ModalUpdateTask
-        id={GlobalObject["id"]}
-        collectionId={GlobalObject["collectionId"]}
-      />
+      <ModalTaskList />
+      <ModalUpdateTask />
     </div>
   );
 }

@@ -15,13 +15,13 @@ const customStyles = {
   },
 };
 
-export default function ModalUpdateTask(props) {
+export default function ModalUpdateTask() {
   const _GlobalFunction = GlobalFunction();
   const _GlobalObject = GlobalObject();
   const onSubmit = (e) => {
     e.preventDefault();
-    axios.put("http://localhost:5001/tasks/update/" + props.id, {
-      collection_id: props.collectionId,
+    axios.put("http://localhost:5001/tasks/update/" + _GlobalObject["id"], {
+      collection_id: _GlobalObject["collectionId"],
       name: document.getElementById("updateName").value,
       description: document.getElementById("updateDescription").value,
       deadline: document.getElementById("updateDeadline").value,
