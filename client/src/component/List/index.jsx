@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import axios from "axios";
 import "./List.css";
 import { GlobalFunction } from "../../RootProvider";
@@ -6,8 +6,9 @@ import { GlobalFunction } from "../../RootProvider";
 export default function List(props) {
   const _GlobalFunction = GlobalFunction();
   const deleteTask = (num) => {
-    axios.delete("http://localhost:5001/tasks/" + num);
-    window.location.reload();
+    axios
+      .delete("http://localhost:5001/tasks/" + num)
+      .then(_GlobalFunction["getTaskList"]());
   };
   const completeTask = (item) => {
     axios.put("http://localhost:5001/tasks/update/" + item.id, {

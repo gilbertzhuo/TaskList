@@ -1,27 +1,24 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useEffect } from "react";
 import "./TaskList.css";
 import List from "../List";
-import { GlobalFunction } from "../../RootProvider";
+import { GlobalObject, GlobalFunction } from "../../RootProvider";
 
 export default function TaskList() {
-  const [taskLists, setTaskList] = useState(null);
+  const _GlobalObject = GlobalObject();
   const _GlobalFunction = GlobalFunction();
+
   useEffect(() => {
-    const getTaskList = async () => {
-      const res = await axios.get("http://localhost:5001/tasks/all");
-      setTaskList(res.data);
-    };
-    getTaskList();
+    _GlobalFunction["getTaskList"]();
   }, []);
   function addTask(num) {
     _GlobalFunction["toggleCollectionId"](num);
     _GlobalFunction["toggleTask"]();
+    _GlobalFunction["getTaskList"]();
   }
   return (
     <div className="wide slider">
-      {taskLists
-        ? taskLists.map((item) => {
+      {_GlobalObject["taskList"]
+        ? _GlobalObject["taskList"].map((item) => {
             return (
               <div
                 className="wrapper td"

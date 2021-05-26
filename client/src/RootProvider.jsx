@@ -1,4 +1,5 @@
 import React, { useState, createContext, useContext } from "react";
+import axios from "axios";
 
 const RootContext = createContext();
 const RootUpdateContext = createContext();
@@ -15,8 +16,10 @@ export function RootProvider({ children }) {
   const [listOpen, setListOpen] = useState(false);
   const [taskOpen, setTaskOpen] = useState(false);
   const [updateOpen, setUpdateOpen] = useState(false);
+  const [taskList, setTaskList] = useState([]);
   const [id, setId] = useState(0);
   const [collectionId, setCollectionId] = useState(0);
+
   function toggleList() {
     setListOpen(!listOpen);
   }
@@ -32,6 +35,15 @@ export function RootProvider({ children }) {
   function toggleCollectionId(num) {
     setCollectionId(num);
   }
+  function addTaskList(list) {
+    if (list == null) setTaskList(null);
+    // let object = taskList;
+    // setTaskList(object.push(list));
+  }
+  const getTaskList = async () => {
+    const res = await axios.get("http://localhost:5001/tasks/all");
+    setTaskList(res.data);
+  };
 
   return (
     <RootContext.Provider
@@ -41,6 +53,7 @@ export function RootProvider({ children }) {
         updateOpen,
         id,
         collectionId,
+        taskList,
       }}
     >
       <RootUpdateContext.Provider
@@ -50,6 +63,8 @@ export function RootProvider({ children }) {
           toggleUpdate,
           toggleId,
           toggleCollectionId,
+          addTaskList,
+          getTaskList,
         }}
       >
         {children}

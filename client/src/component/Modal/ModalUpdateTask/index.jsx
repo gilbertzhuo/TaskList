@@ -28,7 +28,10 @@ export default function ModalUpdateTask() {
         deadline: document.getElementById("updateDeadline").value,
         completed: false,
       })
-      .then(_GlobalFunction["toggleUpdate"](), window.location.reload());
+      .then(
+        _GlobalFunction["toggleUpdate"](),
+        _GlobalFunction["getTaskList"]()
+      );
   };
 
   return (

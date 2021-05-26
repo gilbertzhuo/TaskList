@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import axios from "axios";
 import Modal from "react-modal";
 import { GlobalFunction, GlobalObject } from "../../../RootProvider";
@@ -27,7 +27,7 @@ export default function ModalTask() {
         description: document.getElementById("taskDescription").value,
         deadline: Date(document.getElementById("taskDeadline").value),
       })
-      .then(_GlobalFunction["toggleTask"](), window.location.reload());
+      .then(_GlobalFunction["toggleTask"](), _GlobalFunction["getTaskList"]());
   };
 
   return (
