@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import axios from "axios";
 import Modal from "react-modal";
 import { rootContext } from "../../../App";
