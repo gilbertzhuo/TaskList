@@ -53,15 +53,15 @@ export default function ModalTask(props) {
         <form onSubmit={onSubmit}>
           <label>
             Name:
-            <input type="text" id="taskName" />
+            <input type="text" id="taskName" required />
           </label>
           <label>
             Description:
-            <input type="text" id="taskDescription" />
+            <input type="text" id="taskDescription" required />
           </label>
           <label>
             Deadline:
-            <input type="date" id="taskDeadline" />
+            <input type="date" id="taskDeadline" required />
           </label>
           <input type="submit" value="Submit" />
         </form>

@@ -55,7 +55,7 @@ export default function ModalList() {
         <form onSubmit={onSubmit}>
           <label>
             Name:
-            <input type="text" name="name" id="name" />
+            <input type="text" name="name" id="name" required />
           </label>
           <input type="submit" value="Submit" />
         </form>
