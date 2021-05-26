@@ -1,7 +1,7 @@
-import React, { useContext } from "react";
+import React from "react";
 import axios from "axios";
 import Modal from "react-modal";
-import { rootContext } from "../../../App";
+import { GlobalFunction, GlobalObject } from "../../../RootProvider";
 
 const customStyles = {
   content: {
@@ -16,7 +16,9 @@ const customStyles = {
 };
 
 export default function ModalList() {
-  const isOpen = useContext(rootContext);
+  const _GlobalObject = GlobalObject();
+  const _GlobalFunction = GlobalFunction();
+
   const onSubmit = (e) => {
     e.preventDefault();
     axios.post("http://localhost:5001/tasks/add", {
@@ -25,7 +27,7 @@ export default function ModalList() {
       description: "This is your description",
       deadline: "2020-12-31",
     });
-    isOpen["toggleList"]();
+    _GlobalFunction["toggleList"]();
     window.location.reload();
   };
   const deleteAll = () => {
@@ -35,7 +37,7 @@ export default function ModalList() {
   return (
     <>
       <Modal
-        isOpen={isOpen["listOpen"]}
+        isOpen={_GlobalObject["listOpen"]}
         style={customStyles}
         ariaHideApp={false}
       >
@@ -48,7 +50,7 @@ export default function ModalList() {
             border: "none",
             width: "12px",
           }}
-          onClick={() => isOpen["toggleList"]()}
+          onClick={() => _GlobalFunction["toggleList"]()}
         >
           x
         </button>
@@ -61,7 +63,10 @@ export default function ModalList() {
         </form>
       </Modal>
       <div className="center">
-        <div className="addList" onClick={() => isOpen["toggleList"]()}>
+        <div
+          className="addList"
+          onClick={() => _GlobalFunction["toggleList"]()}
+        >
           NEW LIST
         </div>
         <div className="addList" onClick={() => deleteAll()}>

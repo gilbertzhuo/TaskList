@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import axios from "axios";
 import Modal from "react-modal";
-import { rootContext } from "../../../App";
+import { GlobalFunction, GlobalObject } from "../../../RootProvider";
 
 const customStyles = {
   content: {
@@ -16,7 +16,8 @@ const customStyles = {
 };
 
 export default function ModalTask(props) {
-  const isOpen = useContext(rootContext);
+  const _GlobalFunction = GlobalFunction();
+  const _GlobalObject = GlobalObject();
   const onSubmit = (e) => {
     e.preventDefault();
     axios.post("http://localhost:5001/tasks/add", {
@@ -25,14 +26,14 @@ export default function ModalTask(props) {
       description: document.getElementById("taskDescription").value,
       deadline: Date(document.getElementById("taskDeadline").value),
     });
-    isOpen["toggleTask"]();
+    _GlobalFunction["toggleTask"]();
     window.location.reload();
   };
 
   return (
     <div>
       <Modal
-        isOpen={isOpen["taskOpen"]}
+        isOpen={_GlobalObject["taskOpen"]}
         style={customStyles}
         ariaHideApp={false}
       >
@@ -45,7 +46,7 @@ export default function ModalTask(props) {
             border: "none",
             width: "12px",
           }}
-          onClick={() => isOpen["toggleTask"]()}
+          onClick={() => _GlobalFunction["toggleTask"]()}
         >
           x
         </button>

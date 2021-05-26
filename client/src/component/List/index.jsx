@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import axios from "axios";
 import "./List.css";
-import { rootContext } from "../../App";
+import { GlobalFunction } from "../../RootProvider";
 
 export default function List(props) {
-  const task = useContext(rootContext);
+  const _GlobalFunction = GlobalFunction();
   const deleteTask = (num) => {
     axios.delete("http://localhost:5001/tasks/" + num);
     window.location.reload();
@@ -19,9 +19,9 @@ export default function List(props) {
     });
   };
   const update = (num, num2) => {
-    task["toggleId"](num);
-    task["toggleCollectionId"](num2);
-    task["toggleUpdate"]();
+    _GlobalFunction["toggleId"](num);
+    _GlobalFunction["toggleCollectionId"](num2);
+    _GlobalFunction["toggleUpdate"]();
   };
 
   return (
