@@ -20,18 +20,19 @@ export default function ModalUpdateTask() {
   const _GlobalObject = GlobalObject();
   const onSubmit = (e) => {
     e.preventDefault();
-    axios
-      .put("http://localhost:5001/tasks/update/" + _GlobalObject["id"], {
-        collection_id: _GlobalObject["collectionId"],
-        name: document.getElementById("updateName").value,
-        description: document.getElementById("updateDescription").value,
-        deadline: document.getElementById("updateDeadline").value,
-        completed: false,
-      })
-      .then(
-        _GlobalFunction["toggleUpdate"](),
-        _GlobalFunction["getTaskList"]()
-      );
+    const Object = {
+      collection_id: _GlobalObject["collectionId"],
+      name: document.getElementById("updateName").value,
+      description: document.getElementById("updateDescription").value,
+      deadline: document.getElementById("updateDeadline").value,
+      completed: false,
+    };
+    axios.put(
+      "http://localhost:5001/tasks/update/" + _GlobalObject["id"],
+      Object
+    );
+    _GlobalFunction["toggleUpdate"]();
+    _GlobalFunction["updateTaskList"](Object);
   };
 
   return (

@@ -27,13 +27,13 @@ export default function ModalList() {
       description: "This is your description",
       deadline: "2020-12-31",
     };
-    axios
-      .post("http://localhost:5001/tasks/add", Object)
-      .then(_GlobalFunction["toggleList"]());
+    axios.post("http://localhost:5001/tasks/add", Object);
+    window.location.reload();
   };
   const deleteAll = () => {
     axios.delete("http://localhost:5001/tasks/");
-    _GlobalFunction["addTaskList"](null);
+    _GlobalFunction["getTaskList"]();
+    window.location.reload();
   };
   return (
     <>

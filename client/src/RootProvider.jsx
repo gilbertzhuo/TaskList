@@ -35,15 +35,34 @@ export function RootProvider({ children }) {
   function toggleCollectionId(num) {
     setCollectionId(num);
   }
-  function addTaskList(list) {
-    if (list == null) setTaskList(null);
-    // let object = taskList;
-    // setTaskList(object.push(list));
-  }
+
   const getTaskList = async () => {
     const res = await axios.get("http://localhost:5001/tasks/all");
     setTaskList(res.data);
   };
+
+  function addTaskList(task) {
+    let temp = taskList;
+    for (let i = 0; i < taskList.length; ++i) {
+      if (temp[i]["_id"] === task["collection_id"]) {
+        temp[i]["list"].push(task);
+      }
+    }
+    setTaskList(temp);
+  }
+  function updateTaskList(task) {
+    let temp = taskList;
+    for (let i = 0; i < taskList.length; ++i) {
+      if (temp[i]["_id"] === task["collection_id"]) {
+        for (let j = 0; j < temp[i]["list"].length; ++j) {
+          if (temp[i]["list"][j]["_id"] === task["_id"]) {
+            temp[i]["list"][j] = task;
+          }
+        }
+      }
+    }
+    setTaskList(temp);
+  }
 
   return (
     <RootContext.Provider
@@ -65,6 +84,7 @@ export function RootProvider({ children }) {
           toggleCollectionId,
           addTaskList,
           getTaskList,
+          updateTaskList,
         }}
       >
         {children}

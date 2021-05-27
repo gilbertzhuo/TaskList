@@ -5,10 +5,15 @@ import { GlobalFunction } from "../../RootProvider";
 
 export default function List(props) {
   const _GlobalFunction = GlobalFunction();
-  const deleteTask = (num) => {
-    axios
-      .delete("http://localhost:5001/tasks/" + num)
-      .then(_GlobalFunction["getTaskList"]());
+  const deleteTask = async (num) => {
+    try {
+      const resp = await axios.delete("http://localhost:5001/tasks/" + num);
+      console.log(resp);
+      window.location.reload();
+    } catch (err) {
+      // Handle Error Here
+      console.error(err);
+    }
   };
   const completeTask = (item) => {
     axios.put("http://localhost:5001/tasks/update/" + item.id, {

@@ -20,14 +20,16 @@ export default function ModalTask() {
   const _GlobalObject = GlobalObject();
   const onSubmit = (e) => {
     e.preventDefault();
+    const object = {
+      collection_id: _GlobalObject["collectionId"],
+      name: document.getElementById("taskName").value,
+      description: document.getElementById("taskDescription").value,
+      deadline: Date(document.getElementById("taskDeadline").value),
+    };
     axios
-      .post("http://localhost:5001/tasks/add", {
-        collection_id: _GlobalObject["collectionId"],
-        name: document.getElementById("taskName").value,
-        description: document.getElementById("taskDescription").value,
-        deadline: Date(document.getElementById("taskDeadline").value),
-      })
-      .then(_GlobalFunction["toggleTask"](), _GlobalFunction["getTaskList"]());
+      .post("http://localhost:5001/tasks/add", object)
+      .then(_GlobalFunction["toggleTask"]());
+    _GlobalFunction["addTaskList"](object);
   };
 
   return (
